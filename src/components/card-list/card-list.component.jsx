@@ -6,13 +6,12 @@ import { TextField } from '@mui/material';
 import './card-list.styles.scss';
 import CardDetails from '../card-details/card-details.component';
 
-const CardList = ({ setUserDetail, setPostDetail }) => {
+const CardList = () => {
   const [posts, setPosts] = useState([]);
   const [displayPosts, setDisplayPosts] = useState([]);
   const [counter, setCounter] = useState(1);
   const [hasMore, sethasMore] = useState(true);
   const [searchField, setSearchField] = useState('');
-  const [searching, setSearching] = useState(false);
 
   useEffect(() => {
     fetchPostDataAsync();
@@ -49,7 +48,6 @@ const CardList = ({ setUserDetail, setPostDetail }) => {
   };
 
   const fetchPostDataAsync = async () => {
-    console.log('fetch is executed');
     try {
       fetch('https://jsonplaceholder.typicode.com/posts')
         .then((response) => response.json())
@@ -63,22 +61,22 @@ const CardList = ({ setUserDetail, setPostDetail }) => {
 
   const searchHandler = (e) => {
     const text = e.target.value;
-    if (text.length > 0) {
-      setSearching(true);
-    } else {
-      setSearching(false);
-    }
     setSearchField(text);
 
-    const searchPosts = posts
-      .filter((element) => element.id <= counter * 10)
-      .filter((element) => element.title.includes(text));
+    const searchPosts = posts.filter((element) => element.title.includes(text));
     setDisplayPosts(searchPosts);
   };
 
   return (
     <div className="posts">
-      <TextField className="search-field" id="outlined-basic" label="Search Posts" variant="outlined" value={searchField} onChange={searchHandler} />
+      <TextField
+        className="search-field"
+        id="outlined-basic"
+        label="Search Posts"
+        variant="outlined"
+        value={searchField}
+        onChange={searchHandler}
+      />
       <InfiniteScroll
         dataLength={displayPosts.length}
         next={fetchPosts}
@@ -94,11 +92,9 @@ const CardList = ({ setUserDetail, setPostDetail }) => {
           <CardDetails
             onClick={() => {}}
             key={element.id}
-            isSearching = {searching}
+            searchField={searchField}
             element={element}
             deletehandler={deletehandler}
-            setUserDetail={setUserDetail}
-            setPostDetail={setPostDetail}
           />
         ))}
       </InfiniteScroll>

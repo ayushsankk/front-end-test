@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import './card-details.styles.scss';
 
+import { fetchData
+ } from '../../utils';
 import { Card } from '@mui/material';
 import { Button } from '@mui/material';
 
+import Highlighter from 'react-highlight-words';
+
 const CardDetails = ({
-  isSearching,
+  searchField,
   element,
   deletehandler,
-  setUserDetail,
-  setPostDetail,
   ...otherProps
 }) => {
   const { history } = { ...otherProps };
@@ -28,16 +30,10 @@ const CardDetails = ({
   };
 
   const fetchUserDataAsync = async () => {
-    try {
-      const response = await fetch(
-        `https://jsonplaceholder.typicode.com/users/${userId}`
-      );
-      const json = await response.json();
-      setUser(json);
-      
-    } catch (ex) {
-      console.log(ex);
-    }
+    const userData = await fetchData(
+      `https://jsonplaceholder.typicode.com/users/${userId}`
+    );
+    setUser(userData);
   };
 
   return (
@@ -45,24 +41,24 @@ const CardDetails = ({
       variant="outlined"
       className="card-details"
       onClick={() => {
-        element.userName = user.name;
-        setPostDetail(element);
         history.push(`/post/${id}`);
       }}
     >
-      <p className={`title ${isSearching ? 'highlighted' : 'not-highlighted'}`}>
-        {' '}
-        {title}{' '}
-      </p>
+      <Highlighter
+        className="title"
+        highlightClassName="highlighted"
+        searchWords={[searchField]}
+        autoEscape={true}
+        textToHighlight={title}
+      />
       <p className="body"> {body.slice(0, 100)} </p>
       <div className="user-navigation">
-        <p classname="posted-by"> Posted By: {user.Name} </p>
+        <p className="posted-by"> Posted By: {user.Name} </p>
         <Link
           className="user-link"
           to={`/user/${userId}`}
           onClick={(e) => {
             e.stopPropagation();
-            setUserDetail(user);
           }}
         >
           {user.name}

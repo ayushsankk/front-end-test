@@ -18,7 +18,7 @@ function App() {
           exact
           path="/posts"
           render={(props) => (
-            <CardList {...props} setUserDetail={setUserDetail} setPostDetail={setPostDetail}/>
+            <CardList {...props}/>
           )}
         />
         <Route
@@ -27,7 +27,7 @@ function App() {
         />
         <Route
           path={`/user/:userId`}
-          render={(props) => <UserDetail {...props} userDetail={userDetail} />}
+          render={(props) => <UserDetail {...props} />}
         />
       </Switch>
     </div>

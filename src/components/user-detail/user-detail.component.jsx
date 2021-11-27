@@ -2,6 +2,9 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
+import { fetchData } from '../../utils';
+
+import { useEffect, useState } from 'react';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
 import HomeIcon from '@mui/icons-material/Home';
@@ -9,7 +12,19 @@ import WebIcon from '@mui/icons-material/Web';
 
 import './user-detail.styles.scss';
 
-const UserDetail = ({ userDetail }) => {
+const UserDetail = ({ match }) => {
+  
+    const [userDetail, setUserDetail] = useState({});
+
+  useEffect(() => {
+    fetchUserDataAsync();
+  }, []);
+
+  const fetchUserDataAsync = async () => {
+    const userData = await fetchData(`https://jsonplaceholder.typicode.com/users/${match.params.userId}`);
+    setUserDetail(userData);
+  };
+
   const { name, email, address, phone, website } = userDetail;
   return (
     <div className="user-details">
@@ -26,11 +41,13 @@ const UserDetail = ({ userDetail }) => {
         <HomeIcon />
         <Link
           to={{
-            pathname: `https://maps.google.com?q=${address.geo.lat},${address.geo.lng}`,
+            pathname: `https://maps.google.com?q=${
+              address ? address.geo.lat : ''
+            },${address ? address.geo.lng : ''}`,
           }}
           target="_blank"
         >
-          {address.city}
+          {address ? address.city : ''}
         </Link>
       </div>
       <div className="icon-group">
