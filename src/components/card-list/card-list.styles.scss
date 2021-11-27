@@ -1,0 +1,14 @@
+.posts {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  background-color: rosybrown;
+
+  .search-field {
+    margin: 20px;
+    width: 80%;
+    background-color: rgb(37, 109, 105);
+  }
+}

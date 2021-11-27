@@ -1,0 +1,35 @@
+.card-details {
+
+    margin: 10px;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    flex-direction: column;
+
+    .title {
+        width: 60%;
+        font-weight: bold;
+        color: rgb(37, 109, 105);
+        font-style: italic;
+    }
+    
+    .highlighted {
+        background-color: rosybrown;
+    }
+
+    .user-navigation {
+        display: flex;
+        background-color: rgb(37, 109, 105);
+        align-items: center;
+        justify-content: space-around;
+        margin-bottom: 5px;
+        .posted-by {
+            margin: 5px;
+        }
+
+        .user-link {
+            text-decoration: none;
+        }
+    }
+}
+

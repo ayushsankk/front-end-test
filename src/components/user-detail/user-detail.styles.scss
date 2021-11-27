@@ -1,0 +1,15 @@
+.user-details {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  background-color: rosybrown;
+
+  .icon-group {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}

@@ -1,23 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import CardList from './components/card-list/card-list.component';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+
+import PostDetail from './components/post-detail/post-detail.component';
+import UserDetail from './components/user-detail/user-detail.component';
 
 function App() {
+  const [postDetail, setPostDetail] = useState({});
+  const [userDetail, setUserDetail] = useState({});
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route exact path="/" render={() => <Redirect to="/posts" />} />
+        <Route
+          exact
+          path="/posts"
+          render={(props) => (
+            <CardList {...props} setUserDetail={setUserDetail} setPostDetail={setPostDetail}/>
+          )}
+        />
+        <Route
+          path={`/post/:postId`}
+          render={(props) => <PostDetail {...props} postDetail={postDetail} />}
+        />
+        <Route
+          path={`/user/:userId`}
+          render={(props) => <UserDetail {...props} userDetail={userDetail} />}
+        />
+      </Switch>
     </div>
   );
 }
