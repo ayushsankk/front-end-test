@@ -53,7 +53,7 @@ const CardDetails = ({
       />
       <p className="body"> {body.slice(0, 100)} </p>
       <div className="user-navigation">
-        <p className="posted-by"> Posted By: {user.Name} </p>
+        <p className="posted-by"> Posted By: </p>
         <Link
           className="user-link"
           to={`/user/${userId}`}
