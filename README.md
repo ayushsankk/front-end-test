@@ -3,4 +3,7 @@
 Checkout to master branch.
 
 # Install dependencies
-Run "npm install"
+"npm install"
+
+# Run the app
+"npm start"
